@@ -1,11 +1,10 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
-import compression from 'vite-plugin-compression' // Brotli compression
+import compression from 'vite-plugin-compression'
 
 export default defineConfig({
   plugins: [
     react({
-      // ensure proper JSX handling for React 17+ (automatic runtime)
       jsxRuntime: 'automatic'
     }),
     compression({ algorithm: 'brotliCompress' })
@@ -14,26 +13,40 @@ export default defineConfig({
     rollupOptions: {
       output: {
         manualChunks(id) {
-          // Keep Three.js + React-Three packages in their own chunk
           if (id.includes('node_modules')) {
+            // Separate React and React-DOM into their own chunk
+            if (id.includes('react') && !id.includes('@react-three')) {
+              return 'react-vendor'
+            }
+            // Keep Three.js + React-Three packages together
             if (id.includes('three') || id.includes('@react-three')) {
               return 'three-core'
             }
-            // everything else in vendor
+            // GSAP in its own chunk
+            if (id.includes('gsap')) {
+              return 'gsap'
+            }
+            // Everything else in vendor
             return 'vendor'
           }
         }
       }
     },
-    chunkSizeWarningLimit: 1024
+    chunkSizeWarningLimit: 1024,
+    target: 'esnext',
+    minify: 'esbuild'
   },
   optimizeDeps: {
     include: [
+      'react',
+      'react-dom',
       'three',
       '@react-three/fiber',
       '@react-three/drei',
       'react-globe.gl'
     ]
-    // ✅ removed the conflicting exclude
+  },
+  define: {
+    global: 'globalThis'
   }
 })

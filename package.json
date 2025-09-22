@@ -4,6 +4,10 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "resolutions": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
   "scripts": {
     "dev": "vite",
     "build": "vite build",
@@ -25,7 +29,7 @@
     "react-globe.gl": "^2.27.4",
     "react-responsive": "^10.0.0",
     "react-typed": "^2.0.12",
-    "three": "^0.170.0",
+    "three": "^0.168.0",
     "typewriter-effect": "^2.21.0"
   },
   "devDependencies": {
