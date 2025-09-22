@@ -10,28 +10,6 @@ export default defineConfig({
     compression({ algorithm: 'brotliCompress' })
   ],
   build: {
-    rollupOptions: {
-      output: {
-        manualChunks(id) {
-          if (id.includes('node_modules')) {
-            // Separate React and React-DOM into their own chunk
-            if (id.includes('react') && !id.includes('@react-three')) {
-              return 'react-vendor'
-            }
-            // Keep Three.js + React-Three packages together
-            if (id.includes('three') || id.includes('@react-three')) {
-              return 'three-core'
-            }
-            // GSAP in its own chunk
-            if (id.includes('gsap')) {
-              return 'gsap'
-            }
-            // Everything else in vendor
-            return 'vendor'
-          }
-        }
-      }
-    },
     chunkSizeWarningLimit: 1024,
     target: 'esnext',
     minify: 'esbuild'
