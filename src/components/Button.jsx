@@ -1,4 +1,4 @@
-import React from 'react'
+/* eslint-disable react/prop-types */
 
 const Button = ({name, isBeam=false, containerClass}) => {
     return (

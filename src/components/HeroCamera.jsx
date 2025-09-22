@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import {useRef} from "react";
 import {useFrame} from "@react-three/fiber";
 import {easing} from "maath";

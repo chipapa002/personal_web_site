@@ -1,48 +1,22 @@
-import React, {Suspense, useState} from 'react'
-import {Canvas} from "@react-three/fiber";
-import {workExperiences} from "../constants/index.js";
-import {OrbitControls} from "@react-three/drei";
-import CanvasLoader from "../components/CanvasLoader.jsx";
-import Developer from "../components/Developer.jsx";
+import { education } from "../constants/index.js";
+import Button from '../components/Button.jsx';
 
 const Education = () => {
-    const [animationName, setAnimationName] = useState('idle');
-
     return (
         <section className="c-space my-20" id="education">
             <div className="w-full text-white-600">
-                <p className="head-text">My Educational Background</p>
+                <p className="head-text">Education</p>
 
-                <div className="work-container">
-                    <div className="work-canvas">
-                        <Canvas>
-                            <ambientLight intensity={7} />
-                            <spotLight position={[10, 10, 10]} angle={0.15} penumbra={1} />
-                            <directionalLight position={[10, 10, 10]} intensity={1} />
-                            <OrbitControls enableZoom={false} maxPolarAngle={Math.PI / 2} />
-
-                            <Suspense fallback={<CanvasLoader />}>
-                                <Developer
-                                    rotation={[0.6, 0,0]}
-                                    position-y={-2.5}
-                                           scale={2.5}
-                                           animationName={animationName} />
-                            </Suspense>
-                        </Canvas>
-                    </div>
-
+                <div className="pt-10">
                     <div className="work-content">
                         <div className="sm:py-10 py-5 sm:px-5 px-2.5">
-                            {workExperiences.map((item, index) => (
+                            {education.map((item, index) => (
                                 <div
                                     key={index}
-                                    onClick={() => setAnimationName(item.animation.toLowerCase())}
-                                    onPointerOver={() => setAnimationName(item.animation.toLowerCase())}
-                                    onPointerOut={() => setAnimationName('idle')}
                                     className="work-content_container group">
-                                    <div className="flex flex-col h-full justify-start items-center py-2">
+                                    <div className="flex flex-col h-full justify-start items-center py-2 rounded-lg">
                                         <div className="work-content_logo">
-                                            <img className="w-full h-full" src={item.icon} alt="" />
+                                            <img className="w-full h-full" src={item.icon} alt={item.name} />
                                         </div>
 
                                         <div className="work-content_bar" />
@@ -54,6 +28,17 @@ const Education = () => {
                                             {item.pos} -- <span>{item.duration}</span>
                                         </p>
                                         <p className="group-hover:text-white transition-all ease-in-out duration-500">{item.title}</p>
+                                        {item.certificate && (
+                                            <a
+                                                href={item.certificate}
+                                                download
+                                                className=" inline-block "
+                                            >
+                                               
+                                            <Button name='Download Certificate' isBeam containerClass='w-full mt-5'/>
+                        
+                                            </a>
+                                        )}
                                     </div>
                                 </div>
                             ))}
@@ -64,4 +49,5 @@ const Education = () => {
         </section>
     );
 };
-export default Education
+
+export default Education;

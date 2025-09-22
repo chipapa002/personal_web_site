@@ -6,14 +6,13 @@ Source: https://sketchfab.com/3d-models/toy-robot-domowik-8f1f61ca0c844b978abfb4
 Title: Toy robot Domowik
 */
 
-import React, { useRef } from 'react'
+import { useRef } from 'react'
 import { useGLTF, useAnimations } from '@react-three/drei'
-import DemoComputer from "./DemoComputer.jsx";
 
 const Robot = (props) => {
     const group = useRef()
     const { nodes, materials, animations } = useGLTF('/models/toy_robot_domowik.glb')
-    const { actions } = useAnimations(animations, group)
+    useAnimations(animations, group)
     return (
         <group ref={group} {...props} dispose={null}>
             <group name="Sketchfab_Scene">

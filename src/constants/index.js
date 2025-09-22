@@ -9,11 +9,11 @@ export const navLinks = [
         name: 'About',
         href: '#about',
     },
-    // {
-    //     id: 3,
-    //     name: 'Education',
-    //     href: '#education',
-    // },
+    {
+        id: 3,
+        name: 'Education',
+        href: '#education',
+    },
     {
         id: 4,
         name: 'Contact',
@@ -21,44 +21,9 @@ export const navLinks = [
     },
 ];
 
-export const clientReviews = [
-    {
-        id: 1,
-        name: 'Emily Johnson',
-        position: 'Marketing Director at GreenLeaf',
-        img: 'assets/review1.png',
-        review:
-            'Working with Adrian was a fantastic experience. He transformed our outdated website into a modern, user-friendly platform. His attention to detail and commitment to quality are unmatched. Highly recommend him for any web dev projects.',
-    },
-    {
-        id: 2,
-        name: 'Mark Rogers',
-        position: 'Founder of TechGear Shop',
-        img: 'assets/review2.png',
-        review:
-            'Adrian’s expertise in web development is truly impressive. He delivered a robust and scalable solution for our e-commerce site, and our online sales have significantly increased since the launch. He’s a true professional! Fantastic work.',
-    },
-    {
-        id: 3,
-        name: 'John Dohsas',
-        position: 'Project Manager at UrbanTech ',
-        img: 'assets/review3.png',
-        review:
-            'I can’t say enough good things about Adrian. He was able to take our complex project requirements and turn them into a seamless, functional website. His problem-solving abilities are outstanding.',
-    },
-    {
-        id: 4,
-        name: 'Ether Smith',
-        position: 'CEO of BrightStar Enterprises',
-        img: 'assets/review4.png',
-        review:
-            'Adrian was a pleasure to work with. He understood our requirements perfectly and delivered a website that exceeded our expectations. His skills in both frontend backend dev are top-notch.',
-    },
-];
-
 export const myProjects = [
     {
-        title: 'SpillAged - A water reporting app',
+        title: 'SpillAged',
         desc: 'SpillAged is a pipe leakage reporting app that is used to help the government track water leakages and also sewage leakages easily by involving the community since they are the ones who make the reports ',
         subdesc:
             'The idea of developing the application (SpillAged) is encouraged by the' +
@@ -93,7 +58,7 @@ export const myProjects = [
         ],
     },
     {
-        title: 'SpillAged - A water reporting app - Admin Dashboard',
+        title: 'SpillAged',
         desc: 'The SpillAged admin dashboard is where the the reports get checked if they are legit. If so they get assigned to a supervisor who will update the status of the report . And it is also where users and also employees get managed',
         subdesc:
             'The idea of developing the application (SpillAged) is encouraged by the' +
@@ -116,48 +81,55 @@ export const myProjects = [
                 path: '/assets/react.svg',
             },
             {
+                id: 2,
+                name: 'JavaScript',
+                path: '/assets/javascript.png',
+            },
+            {
                 id: 3,
                 name: 'firebase',
                 path: '/assets/firebase.png',
             },
             {
-                id: 3,
+                id: 4,
                 name: 'Bootstrap',
                 path: '/assets/Bootstrap_logo.svg',
             },
         ],
     },
     {
-        title: 'CBD - Central Business District',
-        desc: 'Central Business District is a solution that combines the qualities of m-commerce and e-commerce in a single system. By registering their' +
-            ' businesses on CBD, business owners will establish a sustainable and maintainable track-record that will assist them manage their business and' +
-            ' ultimately improving their abilities to obtain funding and expand their market reach',
-        subdesc:
-            '',
-        href: 'https://cbd-dashboard1.web.app',
-        texture: '/textures/project/project3.mp4',
-        logo: '/assets/cbd.jpg',
+        title: 'CloudDrop',
+        desc: 'CloudDrop is an innovative cloud storage management platform designed to provide a secure, efficient, and user-friendly way to store, organize, and access your files. Built with simplicity and functionality in mind, CloudDrop allows users to seamlessly upload, share, and manage their data across multiple devices. Whether you need to collaborate with a team or keep your personal files safe and accessible, CloudDrop offers intuitive features, robust security, and a streamlined interface to ensure your data is always within reach.',
+        subdesc: '',
+        href: 'https://cloud-drop-61gd.vercel.app/',
+        texture: '/textures/project/project4.mp4',
+        logo: '/assets/Logo-full.png',
         logoStyle: {
             backgroundColor: '#1C1A43',
             border: '0.2px solid #252262',
             boxShadow: '0px 0px 60px 0px #635BFF4D',
         },
-        spotlight: '/assets/spotlight1.png',
+        spotlight: '/assets/spotlight2.png',
         tags: [
             {
                 id: 1,
-                name: 'Flutter',
-                path: '/assets/flutter.png',
+                name: 'Next.Js',
+                path: '/assets/nextjs.webp',
             },
             {
                 id: 2,
-                name: 'Dart',
-                path: 'assets/dart.png',
+                name: 'TypeScript',
+                path: 'assets/typescript.png',
             },
             {
                 id: 3,
-                name: 'firebase',
-                path: '/assets/firebase.png',
+                name: 'Appwrite',
+                path: '/assets/appwrite.png',
+            },
+            {
+                id: 4,
+                name: 'TailwindCss',
+                path: '/assets/tailwindcss.png',
             },
         ],
     },
@@ -166,33 +138,40 @@ export const myProjects = [
 export const calculateSizes = (isSmall, isMobile, isTablet) => {
     return {
         deskScale: isSmall ? 0.05 : isMobile ? 0.06 : 0.066,
-            //0.065,
         deskPosition: isMobile ? [0.5, -4.5, 0] : [0.25, -5.5, 0],
-        cubePosition: isSmall ? [4, -5, 0] : isMobile ? [5, -5, 0] : isTablet ? [5, -5, 0] : [9, -5.5, 0],
-        reactLogoPosition: isSmall ? [3, 4, 0] : isMobile ? [5, 4, 0] : isTablet ? [5, 4, 0] : [12, 3, 0],
-        ringPosition: isSmall ? [-5, 7, 0] : isMobile ? [-10, 10, 0] : isTablet ? [-12, 10, 0] : [-24, 10, 0],
-        targetPosition: isSmall ? [-5, -10, -10] : isMobile ? [-9, -10, -10] : isTablet ? [-11, -7, -10] : [-13, -13, -10],
+        cubePosition: isSmall ? [4, -5, 0] : isMobile ? [5, -5, 0] : isTablet ? [5, -5, 0] : [9, -7, 0],
+        reactLogoPosition: isSmall ? [3, 4, 0] : isMobile ? [5, 4, 0] : isTablet ? [5, 4, 0] : [10, 3, 0],
+        ringPosition: isSmall ? [-5, 7, 0] : isMobile ? [-10, 10, 0] : isTablet ? [-12, 10, 0] : [-20, 7, 0],
+        targetPosition: isSmall ? [-5, -10, -10] : isMobile ? [-9, -10, -10] : isTablet ? [-11, -7, -10] : [-15, -13, -10],
     };
 };
 
-export const workExperiences = [
+export const education = [
     {
         id: 1,
         name: 'University of Johannesburg',
-        pos: 'Bcom in Information Systems',
-        duration: '2022 - Present',
-        title: "Relevant coursework: Development Software (1A | 1B, 2A | 2B) Information Systems (1A | 1B, 2A | 2B, 3A | 3B) IS Project(final year project) Business Management (1A | 1B) and Entrepreneurship (2A | 2B, 3A | 3B)",
+        pos: 'BcomHons in Information Systems',
+        duration: 'Present',
+        title: "Relevant coursework: Learning from data, IS architecture, Cybersecurity, IS research methodology, Strategic IS management, IS research project, IS project management, IT governance, Predictive Analytics",
         icon: '/assets/uj.png',
-        animation: 'clapping',
+        certificate: '/assets/honors.pdf'
     },
     {
         id: 2,
+        name: 'University of Johannesburg',
+        pos: 'Bcom in Information Systems',
+        duration: '2022 - 2024',
+        title: "Relevant coursework: Development Software, Information Systems,  IS Project, Business Management and Entrepreneurship",
+        icon: '/assets/uj.png',
+        certificate: '/assets/degree.pdf'
+    },
+    {
+        id: 3,
         name: 'Johannesburg Business School',
         pos: 'Python Bootcamp',
         duration: '2023',
         title: "A 3 months (Grit Lab Africa) program founded by Prof Abejide Ade-Ibijola, relevant coursework: Algorithms and Data Structures, Introduction to Python",
         icon: '/assets/uj.png',
-        animation: 'salute',
+        certificate: '/assets/jbs.pdf'
     },
-
 ];

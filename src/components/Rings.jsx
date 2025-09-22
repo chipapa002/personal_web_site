@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { useGSAP } from '@gsap/react';
 import { Center, useTexture } from '@react-three/drei';
 import gsap from 'gsap';

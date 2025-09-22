@@ -62,13 +62,16 @@ body {
   }
 
   .hero-background {
-    background-image: url('assets/back---.jpg');
+    background-image: url('/bck.webp');
     background-size:
             cover;
             /*95% auto;*/
     background-repeat: no-repeat;
     background-position: center;
   }
+
+
+
 
   /* about section */
   .grid-container {
@@ -123,11 +126,11 @@ body {
   }
 
   .work-content_container {
-    @apply grid grid-cols-[auto_1fr] items-start gap-5  transition-all ease-in-out duration-500 cursor-pointer hover:bg-black-300 rounded-lg sm:px-5 px-2.5;
+    @apply grid grid-cols-[auto_1fr] items-start gap-5  transition-all ease-in-out duration-500  rounded-lg sm:px-5 px-2.5;
   }
 
   .work-content_logo {
-    @apply rounded-3xl w-16 h-16 p-2 bg-black-600;
+    @apply rounded-full w-16 h-16 p-2 bg-black-600;
   }
 
   .work-content_bar {
