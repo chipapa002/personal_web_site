@@ -118,20 +118,14 @@ const Contact = () => {
       } else if (!isValidEmail(contactData.email)) {
         fields.push("", "Invalid email format");
       } else {
-        fields.push("", "✅ Ready to send!");
+        fields.push("", ">>> Ready to send!");
       }
 
       return fields;
     },
 
     clear: () => {
-      setContactData({ name: "", email: "", message: "" });
-      setTerminalHistory([
-        { type: "system", content: "Welcome to Contact Terminal v1.0" },
-        { type: "system", content: 'Type "help" to see available commands' },
-        { type: "system", content: 'Type "form" to switch to form mode' },
-        { type: "prompt", content: "guest@portfolio:~$" },
-      ]);
+      window.location.reload();
       return [];
     },
 
@@ -171,10 +165,10 @@ const Contact = () => {
 
         console.log("Email sent successfully:", response);
         setContactData({ name: "", email: "", message: "" });
-        return ["✅ Message sent successfully!", "Contact data has been reset."];
+        return [">>> Message sent successfully!", "Contact data has been reset."];
       } catch (error) {
         console.error("EmailJS send error:", error);
-        return [`❌ Failed to send message. ${error.text || "Please try again."}`];
+        return [`>>> Failed to send message. ${error.text || "Please try again."}`];
       } finally {
         setLoading(false);
       }
@@ -411,7 +405,7 @@ const Contact = () => {
                     }
                     className="bg-transparent text-white outline-none flex-1 ml-2"
                     disabled={loading}
-                    autoFocus
+                    // autoFocus removed to prevent auto-scroll
                   />
                   <div className="w-2 h-5 bg-green-400 animate-pulse ml-1"></div>
                 </div>
