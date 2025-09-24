@@ -1,7 +1,5 @@
-import { useState} from 'react';
+import { useState } from 'react';
 import Button from '../components/Button.jsx';
-
-
 
 const About = () => {
     const [copiedText, setCopiedText] = useState(null);
@@ -22,7 +20,7 @@ const About = () => {
                         <div>
                             <p className='grid-headtext'>Hi, Nndamulele Tshipapa here</p>
                             <p className='grid-subtext'>I am a 22-year-old BCom Information Systems graduate from the University of Johannesburg with a passion for developing software solutions.</p>
-                        <a href='/assets/record.pdf' className='w-full'>
+                            <a href='/assets/record.pdf' className='w-full'>
                                 <Button name='Download Transcript' isBeam containerClass='w-full mt-5 text-sm'/>
                             </a>
                         </div>
@@ -50,9 +48,9 @@ const About = () => {
                         </div>
                         <div>
                             <p className='grid-headtext'>Location</p>
-                            <p className='grid-subtext'>You can find me at: 352 Lilian Ngoyi St, Hillbrow</p>
-                            <a href='#contact' className='w-fit'>
-                                <Button name='Contact Me' isBeam containerClass='w-full mt-5 text-sm'/>
+                            <p className='grid-subtext'>You can find me at: 352 Lilian Ngoyi St, Johannesburg Central, Johannesburg, South Africa</p>
+                            <a href='https://www.google.com/maps/search/?api=1&query=352+Lilian+Ngoyi+St,+Johannesburg+Central,+Johannesburg,+South+Africa' target='_blank' rel='noopener noreferrer' className='w-fit'>
+                                <Button name='View on Map' isBeam containerClass='w-full mt-5 text-sm'/>
                             </a>
                         </div>
                     </div>

@@ -100,7 +100,7 @@ const Hero = () => {
                             ></div>
                         </div>
                         <div className="flex-1 p-3 sm:p-4 overflow-auto font-mono text-sm" ref={terminalRef}>
-                            <p className="text-green-400 mb-2 text-xs sm:text-sm">~$ welcome to portfolio</p>
+                            <p className="text-green-400 mb-2 text-xs sm:text-sm">~$ portfolio</p>
                             <div className="mb-4">
                                 <pre className="text-green-400 text-xs font-mono leading-tight whitespace-pre">
                                     {systemInfo}

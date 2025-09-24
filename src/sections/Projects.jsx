@@ -185,9 +185,10 @@ const Projects = () => {
                             </div>
                             <div className="flex-1 p-3 sm:p-4 overflow-auto font-mono text-sm">
                                 {/* ASCII Art Display */}
-                                <div className="mb-4 sm:mb-6">
-                                    <div className="flex justify-center">
-                                        <pre className="text-green-400 text-[6px] sm:text-[8px] font-mono leading-none whitespace-pre tracking-tight bg-black bg-opacity-70 p-2 sm:p-3 rounded border border-green-500 border-opacity-30">
+                                <div className="mb-4 mt-4 sm:mb-6">
+                                    <div className="flex">
+                                        <p className='text-green-400'>{">>>"}</p>
+                                        <pre className="text-green-400 text-[6px] sm:text-[8px] leading-none pl-2">
                                             {asciiArt}
                                         </pre>
                                     </div>
@@ -236,7 +237,7 @@ const Projects = () => {
                                         className="text-blue-400 text-xs hover:underline cursor-pointer ml-2"
                                         onClick={handleVideoClick}
                                     >
-                                        View Project Video
+                                        http://localhost:5173/preview - Click to see video
                                     </a>
                                 </div>
 
