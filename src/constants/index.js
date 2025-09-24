@@ -58,7 +58,7 @@ export const myProjects = [
         ],
     },
     {
-        title: 'SpillAged',
+        title: 'SpillAged - Admin',
         desc: 'The SpillAged admin dashboard is where the the reports get checked if they are legit. If so they get assigned to a supervisor who will update the status of the report . And it is also where users and also employees get managed',
         subdesc:
             'The idea of developing the application (SpillAged) is encouraged by the' +
