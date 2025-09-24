@@ -76,7 +76,7 @@ const Projects = () => {
     const handleVideoClick = (e) => {
         e.preventDefault();
         e.stopPropagation();
-        console.log('Video clicked, expanding...'); // Debug log
+        console.log('Video link clicked, expanding...'); // Debug log
         setIsVideoExpanded(true);
     };
 
@@ -89,6 +89,14 @@ const Projects = () => {
 
     // Generate ASCII art for current project title
     const asciiArt = generateASCIIArt(currentProject.title);
+
+    // Simulate current timestamp for build
+    const buildTime = new Date().toLocaleString('en-US', { 
+        hour: '2-digit', 
+        minute: '2-digit', 
+        second: '2-digit', 
+        hour12: true 
+    });
 
     return (
         <>
@@ -176,8 +184,6 @@ const Projects = () => {
                                 <div className="w-3 h-3 rounded-full bg-green-500"></div>
                             </div>
                             <div className="flex-1 p-3 sm:p-4 overflow-auto font-mono text-sm">
-                                <p className="text-green-400 mb-2 text-xs sm:text-sm">~$ project preview</p>
-                                
                                 {/* ASCII Art Display */}
                                 <div className="mb-4 sm:mb-6">
                                     <div className="flex justify-center">
@@ -193,32 +199,45 @@ const Projects = () => {
                                     </div>
                                 </div>
 
-                                 {/* Video Preview */}
-                                <p className="text-purple-400 text-xs mb-1 sm:mb-2">$ npm run preview</p>
-                                <div className="relative group flex">
-                                    <p className='text-green-500'>{">>>"}</p>
-                                    <video
-                                        src={currentProject.texture}
-                                        autoPlay
-                                        loop
-                                        muted
-                                        playsInline
-                                        className="w-full h-auto max-h-32 sm:max-h-48 object-contain rounded cursor-pointer transition-all duration-200 hover:opacity-80 hover:scale-105"
-                                        onClick={handleVideoClick}
-                                        onMouseEnter={() => console.log('Video hover')} // Debug
-                                    />
-                                    {/* Overlay hint */}
-                                    <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-200 bg-black bg-opacity-20 rounded pointer-events-none">
-                                        <div className="bg-black bg-opacity-70 text-white px-2 sm:px-3 py-1 rounded text-xs">
-                                            Click to expand
-                                        </div>
+                                {/* Build Process Simulation */}
+                                <p className="text-purple-400 text-xs mb-1 sm:mb-2">$ npm run build</p>
+                                <div className="relative group flex flex-col">
+                                    <div className="flex items-center">
+                                        <p className="text-green-500">{">>>"}</p>
+                                        <p className="text-gray-300 text-xs ml-2">[ {buildTime} ] Starting build process...</p>
                                     </div>
-                                    {/* Debug indicator */}
-                                    {isVideoExpanded && (
-                                        <div className="absolute top-2 left-2 bg-green-500 text-white px-2 py-1 rounded text-xs">
-                                            Modal Active
-                                        </div>
-                                    )}
+                                    <div className="flex items-center">
+                                        <p className="text-green-500">{">>>"}</p>
+                                        <p className="text-gray-300 text-xs ml-2">[ {buildTime} ] Compiling modules...</p>
+                                    </div>
+                                    <div className="flex items-center">
+                                        <p className="text-green-500">{">>>"}</p>
+                                        <p className="text-gray-300 text-xs ml-2">[ {buildTime} ] Bundling assets...</p>
+                                    </div>
+                                    <div className="flex items-center">
+                                        <p className="text-green-500">{">>>"}</p>
+                                        <p className="text-gray-300 text-xs ml-2">[ {buildTime} ] Optimizing output...</p>
+                                    </div>
+                                    <div className="flex items-center">
+                                        <p className="text-green-500">{">>>"}</p>
+                                        <p className="text-green-400 text-xs ml-2">[ {buildTime} ] Build completed successfully!</p>
+                                    </div>
+                                    <div className="flex items-center mt-1">
+                                        <p className="text-green-500">{">>>"}</p>
+                                        <p className="text-gray-300 text-xs ml-2">Build time: 3.24s | Output size: 1.2 MB</p>
+                                    </div>
+                                </div>
+
+                                {/* Preview Link */}
+                                <p className="text-purple-400 text-xs mt-2 mb-1 sm:mb-2">$ npm run preview</p>
+                                <div className="relative group flex">
+                                    <p className="text-green-500">{">>>"}</p>
+                                    <a
+                                        className="text-blue-400 text-xs hover:underline cursor-pointer ml-2"
+                                        onClick={handleVideoClick}
+                                    >
+                                        View Project Video
+                                    </a>
                                 </div>
 
                                 {/* Project Info Section */}

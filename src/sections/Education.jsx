@@ -35,7 +35,7 @@ const Education = () => {
                                                 className=" inline-block "
                                             >
                                                
-                                            <Button name='Download Certificate' isBeam containerClass='w-full mt-5'/>
+                                            <Button name='Download Certificate' isBeam containerClass='w-full mt-5 text-sm'/>
                         
                                             </a>
                                         )}

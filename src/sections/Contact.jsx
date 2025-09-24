@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { useState, useEffect, useRef } from "react";
 import emailjs from "@emailjs/browser";
 
@@ -73,11 +74,11 @@ const Contact = () => {
         "FzBjihRkd6yT8JPf1"
       );
 
-      alert("✅ Message sent successfully!");
+      alert(">>> Message sent successfully!");
       setContactData({ name: "", email: "", message: "" });
     } catch (error) {
       console.error("EmailJS send error:", error);
-      alert(`❌ Failed to send message. ${error.text || "Please try again."}`);
+      alert(`>>> Failed to send message. ${error.text || "Please try again."}`);
     } finally {
       setLoading(false);
     }
@@ -271,7 +272,7 @@ const Contact = () => {
           </div>
 
           {/* Form Body */}
-          <div className="bg-black-200 rounded-b-lg p-6 border-b border-l border-r border-black-300 h-[600px] min-h-[600px] overflow-y-auto">
+          <div className="bg-black-200 rounded-b-lg p-6 border-b border-l border-r border-black-300 h-[650px] min-h-[650px] overflow-y-auto">
             <div className="space-y-6">
               {/* Name Field */}
               <div>

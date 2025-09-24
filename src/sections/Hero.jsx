@@ -1,77 +1,160 @@
-import { lazy, Suspense } from "react";
-import { Canvas } from "@react-three/fiber";
-import { PerspectiveCamera } from "@react-three/drei";
-import CanvasLoader from "../components/CanvasLoader.jsx";
+import { useState, useRef, useEffect } from "react";
 import { useMediaQuery } from "react-responsive";
-import { calculateSizes } from "../constants/index.js";
-import HeroCamera from "../components/HeroCamera.jsx";
-import Button from "../components/Button.jsx";
-import Typewriter from "typewriter-effect";
-
-// Lazy load large 3D components
-const Robot = lazy(() => import("../components/Robot.jsx"));
-const Target = lazy(() => import("../components/Target.jsx"));
-const ReactLogo = lazy(() => import("../components/ReactLogo.jsx"));
-const Cube = lazy(() => import("../components/Cube.jsx"));
-const Rings = lazy(() => import("../components/Rings.jsx"));
+import { myProjects, education } from "../constants/index.js";
 
 const Hero = () => {
-    const isSmall = useMediaQuery({ maxWidth: 440 });
     const isMobile = useMediaQuery({ maxWidth: 768 });
-    const isTablet = useMediaQuery({ minWidth: 768, maxWidth: 1024 });
+    const [isTerminalExpanded, setIsTerminalExpanded] = useState(false);
+    const [commandHistory, setCommandHistory] = useState([]);
+    const [currentCommand, setCurrentCommand] = useState('');
+    const terminalRef = useRef(null);
+    const inputRef = useRef(null);
 
-    const sizes = calculateSizes(isSmall, isMobile, isTablet);
+    const handleKeyDown = (e) => {
+        if (e.key === 'Enter') {
+            const cmd = currentCommand.trim().toLowerCase();
+            let output = '';
+            switch (cmd) {
+                case 'help':
+                    output = 'Available commands: help, location, email, phone, projects, education, cv, exit';
+                    break;
+                case 'location':
+                    output = '352 Lilian Ngoyi St, Johannesburg Central, Johannesburg, South Africa';
+                    break;
+                case 'email':
+                    output = 'nndamulelechip18@gmail.com';
+                    break;
+                case 'phone':
+                    output = '072 068 7560';
+                    break;
+                case 'projects':
+                    output = myProjects.map(p => p.title).join('\n');
+                    break;
+                case 'education':
+                    output = education.map(e => `${e.name} - ${e.pos} (${e.duration})`).join('\n');
+                    break;
+                case 'cv':
+                    { output = 'Downloading CV...';
+                    const link = document.createElement('a');
+                    link.href = '/assets/NC Tshipapa CV.pdf';
+                    link.download = 'tshipapa_cv.pdf';
+                    link.click();
+                    break; }
+                case 'exit':
+                    setIsTerminalExpanded(false);
+                    setCurrentCommand('');
+                    return;
+                default:
+                    output = 'Command not found. Type "help" for available commands.';
+            }
+            setCommandHistory([...commandHistory, { command: cmd, output }]);
+            setCurrentCommand('');
+        }
+    };
+
+    useEffect(() => {
+        if (terminalRef.current) {
+            terminalRef.current.scrollTop = terminalRef.current.scrollHeight;
+        }
+        if (inputRef.current && isTerminalExpanded && !isMobile) {
+            inputRef.current.focus();
+        }
+    }, [commandHistory, isTerminalExpanded, isMobile]);
+
+    const handleRedButton = () => {
+        window.close(); // Attempt to close the window
+    };
+
+    const handleGreenButton = () => {
+        setIsTerminalExpanded(true);
+    };
+
+    // Simulate system info for terminal
+    const systemInfo = `System: PortfolioOS v1.0.0\nUser: Guest\nLast login: ${new Date().toLocaleString('en-US', {
+        weekday: 'short',
+        year: 'numeric',
+        month: 'short',
+        day: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit',
+        hour12: true
+    })}`;
 
     return (
         <section className="min-h-screen w-full flex flex-col relative hero-background" id="home">
-            <div className="flex flex-col w-full mx-auto sm:mt-36 mt-20 c-space gap-3">
-                <p className="sm:text-3xl text-2xl text-white text-center font-generalsans">
-                    Hi, I am Nndamulele <span className="waving-hand">👋🏾</span>
-                </p>
-                <div className="hero_tag text-gray_gradient">
-                    <Typewriter
-                        options={{
-                            strings: ["Software Developer", "Creative Thinker", "Tech Enthusiast"],
-                            autoStart: true,
-                            loop: true,
-                            delay: 95,
-                            deleteSpeed: 50,
-                        }}
-                    />
-                </div>
-                <div className="w-full h-full absolute inset-0">
-                    <Canvas className="w-full h-full">
-                        <Suspense fallback={<CanvasLoader />}> 
-                            <PerspectiveCamera makeDefault position={[0, 0, 20]} />
-                            <HeroCamera isMobile={isMobile}>
-                                <Suspense fallback={<CanvasLoader />}>
-                                    <Robot
-                                        position={isSmall ? [0, -2.5, 0] : [0, -3.5, 0]}
-                                        rotation={[0, -1.6, 0.0]}
-                                        scale={1.4}
-                                    />
-                                </Suspense>
-                            </HeroCamera>
-                            {!isSmall && (
-                                <Suspense fallback={null}>
-                                    <group>
-                                        <Target position={sizes.targetPosition} />
-                                        <ReactLogo position={sizes.reactLogoPosition} />
-                                        <Cube position={sizes.cubePosition} />
-                                        <Rings position={sizes.ringPosition} scale={0.1} />
-                                    </group>
-                                </Suspense>
+            <div className="flex flex-col w-full h-full items-center justify-end">
+                <div className={`absolute bottom-10 border border-black-300 bg-black-200 rounded-t-lg w-[90%] xl:w-[100%] max-w-[1200px] transition-all duration-300 ${isTerminalExpanded ? 'h-[75vh]' : 'h-[60vh]'}`}>
+                    <div className="bg-black-200 rounded-t-lg h-full flex flex-col">
+                        <div className="flex items-center gap-2 p-3 bg-gray-900 rounded-t-lg">
+                            <div 
+                                className="w-3 h-3 rounded-full bg-red-500 cursor-pointer hover:bg-red-600" 
+                                onClick={handleRedButton}
+                                aria-label="Close window"
+                            ></div>
+                            <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
+                            <div 
+                                className="w-3 h-3 rounded-full bg-green-500 cursor-pointer hover:bg-green-600" 
+                                onClick={handleGreenButton}
+                                aria-label="Expand terminal"
+                            ></div>
+                        </div>
+                        <div className="flex-1 p-3 sm:p-4 overflow-auto font-mono text-sm" ref={terminalRef}>
+                            <p className="text-green-400 mb-2 text-xs sm:text-sm">~$ welcome to portfolio</p>
+                            <div className="mb-4">
+                                <pre className="text-green-400 text-xs font-mono leading-tight whitespace-pre">
+                                    {systemInfo}
+                                </pre>
+                                <p className="text-gray-300 text-xs mt-2">Welcome to Nndamulele&apos;s Portfolio Terminal</p>
+                                {!isMobile ? (
+                                    isTerminalExpanded ? (
+                                        <p className="text-gray-300 text-xs">Type &apos;help&apos; for available commands</p>
+                                    ) : (
+                                        <p className="text-gray-300 text-xs">Click the green button to expand the terminal and type commands</p>
+                                    )
+                                ) : (
+                                    <div className="text-gray-300 text-xs mt-2">
+                                        <a
+                                            href="/assets/NC Tshipapa CV.pdf"
+                                            download="tshipapa_cv.pdf"
+                                            className="text-blue-400 text-xs hover:underline"
+                                        >
+                                            Download CV
+                                        </a>
+                                    </div>
+                                )}
+                            </div>
+                            {isTerminalExpanded && !isMobile ? (
+                                <>
+                                    {commandHistory.map((entry, index) => (
+                                        <div key={index} className="mb-2">
+                                            <p className="text-purple-400 text-xs">$ {entry.command}</p>
+                                            <p className="text-green-400 text-xs">{entry.output}</p>
+                                        </div>
+                                    ))}
+                                    <div className="flex items-center">
+                                        <p className="text-purple-400 text-xs">$</p>
+                                        <input
+                                            ref={inputRef}
+                                            type="text"
+                                            value={currentCommand}
+                                            onChange={(e) => setCurrentCommand(e.target.value)}
+                                            onKeyDown={handleKeyDown}
+                                            className="bg-transparent text-green-400 text-xs outline-none flex-1 ml-2"
+                                            placeholder="Type a command..."
+                                        />
+                                    </div>
+                                </>
+                            ) : (
+                                <div className="text-gray-300 text-xs space-y-1">
+                                    <p><span className="text-green-400">Status:</span> Online</p>
+                                    <p><span className="text-green-400">Last Command:</span> init portfolio</p>
+                                    <p><span className="text-green-400">Uptime:</span> {Math.floor(Math.random() * 100)} minutes</p>
+                                </div>
                             )}
-                            <ambientLight intensity={0.7} />
-                            <directionalLight position={[10, 10, 10]} intensity={0.7} />
-                            <spotLight position={[0, -0.5, 10]} intensity={3} angle={1} distance={200} />
-                        </Suspense>
-                    </Canvas>
-                </div>
-                <div className="absolute bottom-7 left-0 right-0 w-full z-10 c-space">
-                    <a href="/assets/NC Tshipapa CV.pdf" download="tshipapa_cv.pdf" className="w-fit">
-                        <Button name="Download CV" isBeam containerClass="sm:w-fit w-full sm:min-w-96" />
-                    </a>
+                            <p className="text-green-400 text-xs mt-2 sm:mt-3 animate-pulse">█</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>

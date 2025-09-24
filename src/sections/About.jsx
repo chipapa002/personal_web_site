@@ -1,15 +1,7 @@
-import { useState, lazy, Suspense } from 'react';
+import { useState} from 'react';
 import Button from '../components/Button.jsx';
 
-// Lazy load the Globe component
-const Globe = lazy(() => import('react-globe.gl'));
 
-// Loading component for the Globe
-const LoadingGlobe = () => (
-  <div className="rounded-3xl w-full h-[326px] flex justify-center items-center bg-gray-800">
-    <div className="text-white">Loading 3D Globe...</div>
-  </div>
-);
 
 const About = () => {
     const [copiedText, setCopiedText] = useState(null);
@@ -31,7 +23,7 @@ const About = () => {
                             <p className='grid-headtext'>Hi, Nndamulele Tshipapa here</p>
                             <p className='grid-subtext'>I am a 22-year-old BCom Information Systems graduate from the University of Johannesburg with a passion for developing software solutions.</p>
                         <a href='/assets/record.pdf' className='w-full'>
-                                <Button name='Download Transcript' isBeam containerClass='w-full mt-10'/>
+                                <Button name='Download Transcript' isBeam containerClass='w-full mt-5 text-sm'/>
                             </a>
                         </div>
                     </div>
@@ -60,7 +52,7 @@ const About = () => {
                             <p className='grid-headtext'>Location</p>
                             <p className='grid-subtext'>You can find me at: 352 Lilian Ngoyi St, Hillbrow</p>
                             <a href='#contact' className='w-fit'>
-                                <Button name='Contact Me' isBeam containerClass='w-full mt-10'/>
+                                <Button name='Contact Me' isBeam containerClass='w-full mt-5 text-sm'/>
                             </a>
                         </div>
                     </div>
