@@ -3,64 +3,10 @@ import { myProjects } from "../constants/index.js";
 
 const projectCount = myProjects.length;
 
-// Function to generate ASCII art for project names (Firebase style)
-const generateASCIIArt = (text) => {
-    const chars = text.toUpperCase().replace(/[^A-Z0-9\s]/g, '').substring(0, 12); // Limit length
-    const lines = ['', '', '', '', ''];
-    
-    const asciiMap = {
-        'A': ['#######', '#     #', '#######', '#     #', '#     #'],
-        'B': ['#######', '#     #', '#######', '#     #', '#######'],
-        'C': [' ######', '#      ', '#      ', '#      ', ' ######'],
-        'D': ['#######', '#     #', '#     #', '#     #', '#######'],
-        'E': ['#######', '#      ', '####   ', '#      ', '#######'],
-        'F': ['#######', '#      ', '####   ', '#      ', '#      '],
-        'G': [' ######', '#      ', '#   ###', '#     #', ' ######'],
-        'H': ['#     #', '#     #', '#######', '#     #', '#     #'],
-        'I': ['#######', '   #   ', '   #   ', '   #   ', '#######'],
-        'J': ['#######', '    #  ', '    #  ', '#   #  ', ' ###   '],
-        'K': ['#    ##', '#  #   ', '###    ', '#  #   ', '#    ##'],
-        'L': ['#      ', '#      ', '#      ', '#      ', '#######'],
-        'M': ['#     #', '##   ##', '# ### #', '#     #', '#     #'],
-        'N': ['##    #', '# #   #', '#  #  #', '#   # #', '#    ##'],
-        'O': [' ##### ', '#     #', '#     #', '#     #', ' ##### '],
-        'P': ['#######', '#     #', '#######', '#      ', '#      '],
-        'Q': [' ##### ', '#     #', '# # # #', '#   # #', ' ##### '],
-        'R': ['#######', '#     #', '#######', '#   #  ', '#    ##'],
-        'S': [' ######', '#      ', ' ##### ', '      #', '###### '],
-        'T': ['#######', '   #   ', '   #   ', '   #   ', '   #   '],
-        'U': ['#     #', '#     #', '#     #', '#     #', ' ##### '],
-        'V': ['#     #', '#     #', '#     #', ' #   # ', '   #   '],
-        'W': ['#     #', '#     #', '# ### #', '##   ##', '#     #'],
-        'X': ['#     #', ' #   # ', '   #   ', ' #   # ', '#     #'],
-        'Y': ['#     #', ' #   # ', '   #   ', '   #   ', '   #   '],
-        'Z': ['#######', '     # ', '   #   ', ' #     ', '#######'],
-        '0': [' ##### ', '#     #', '# # # #', '#     #', ' ##### '],
-        '1': ['   ##  ', '  ###  ', '   ##  ', '   ##  ', ' ######'],
-        '2': [' ##### ', '      #', ' ##### ', '#      ', '#######'],
-        '3': [' ##### ', '      #', ' ##### ', '      #', ' ##### '],
-        '4': ['#     #', '#     #', '#######', '      #', '      #'],
-        '5': ['#######', '#      ', '###### ', '      #', '###### '],
-        '6': [' ##### ', '#      ', '###### ', '#     #', ' ##### '],
-        '7': ['#######', '     # ', '    #  ', '   #   ', '  #    '],
-        '8': [' ##### ', '#     #', ' ##### ', '#     #', ' ##### '],
-        '9': [' ##### ', '#     #', ' ######', '      #', ' ##### '],
-        ' ': ['       ', '       ', '       ', '       ', '       ']
-    };
-
-    for (let char of chars) {
-        const art = asciiMap[char] || asciiMap[' '];
-        for (let i = 0; i < 5; i++) {
-            lines[i] += art[i] + '  ';
-        }
-    }
-
-    return lines.join('\n');
-};
-
 const Projects = () => {
     const [selectedIndex, setSelectedIndex] = useState(0);
     const [isVideoExpanded, setIsVideoExpanded] = useState(false);
+    const [isTerminalOpen, setIsTerminalOpen] = useState(false);
     const currentProject = myProjects[selectedIndex];
 
     const handleNavigation = (direction) => {
@@ -87,16 +33,45 @@ const Projects = () => {
         setIsVideoExpanded(false);
     };
 
-    // Generate ASCII art for current project title
-    const asciiArt = generateASCIIArt(currentProject.title);
+    const toggleTerminal = () => {
+        setIsTerminalOpen(!isTerminalOpen);
+    };
 
-    // Simulate current timestamp for build
-    const buildTime = new Date().toLocaleString('en-US', { 
-        hour: '2-digit', 
-        minute: '2-digit', 
-        second: '2-digit', 
-        hour12: true 
-    });
+    // React code snippet for the current project
+    const reactCodeSnippet = `import React, { useState, useEffect } from 'react';
+import './styles.css';
+
+const ${currentProject.title.replace(/\s+/g, '')} = () => {
+  const [loading, setLoading] = useState(true);
+  const [data, setData] = useState(null);
+  
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch('/api/data');
+        const result = await response.json();
+        setData(result);
+      } catch (error) {
+        console.error('Error:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    
+    fetchData();
+  }, []);
+  
+  if (loading) return <div>Loading...</div>;
+  
+  return (
+    <div className="container">
+      <h1>${currentProject.title}</h1>
+      <p>{data?.message}</p>
+    </div>
+  );
+};
+
+export default ${currentProject.title.replace(/\s+/g, '')};`;
 
     return (
         <>
@@ -176,82 +151,119 @@ const Projects = () => {
                             </button>
                         </div>
                     </div>
-                    <div className="border border-black-300 bg-black-200 rounded-lg h-full min-h-[400px] sm:min-h-[500px]">
-                        <div className="bg-black-200 rounded-lg h-full flex flex-col">
-                            <div className="flex items-center gap-2 p-3 bg-gray-900 rounded-t-lg">
+                    
+                    {/* VS Code-like Editor Card */}
+                    <div className="border border-black-300 bg-black-200 rounded-lg h-full min-h-[400px] sm:min-h-[500px] flex flex-col">
+                        {/* VS Code Header */}
+                        <div className="flex items-center justify-between p-3 bg-gray-900 rounded-t-lg border-b border-gray-700">
+                            <div className="flex items-center gap-2">
                                 <div className="w-3 h-3 rounded-full bg-red-500"></div>
                                 <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
                                 <div className="w-3 h-3 rounded-full bg-green-500"></div>
                             </div>
-                            <div className="flex-1 p-3 sm:p-4 overflow-auto font-mono text-sm">
-                                {/* ASCII Art Display */}
-                                <div className="mb-4 mt-4 sm:mb-6">
-                                    <div className="flex">
-                                        <p className='text-green-400'>{">>>"}</p>
-                                        <pre className="text-green-400 text-[6px] sm:text-[8px] leading-none pl-2">
-                                            {asciiArt}
-                                        </pre>
-                                    </div>
-                                    <div className="flex items-center gap-2 mt-2 sm:mt-3">
-                                        <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
-                                        <p className="text-green-300 text-xs">
-                                            {currentProject.title} <span className="text-gray-500">v1.0.0</span>
-                                        </p>
-                                    </div>
+                            <div className="flex items-center gap-4">
+                                <div className="flex items-center gap-2">
+                                    <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+                                    <span className="text-green-300 text-xs font-semibold">
+                                        {currentProject.title}
+                                    </span>
                                 </div>
-
-                                {/* Build Process Simulation */}
-                                <p className="text-purple-400 text-xs mb-1 sm:mb-2">$ npm run build</p>
-                                <div className="relative group flex flex-col">
-                                    <div className="flex items-center">
-                                        <p className="text-green-500">{">>>"}</p>
-                                        <p className="text-gray-300 text-xs ml-2">[ {buildTime} ] Starting build process...</p>
-                                    </div>
-                                    <div className="flex items-center">
-                                        <p className="text-green-500">{">>>"}</p>
-                                        <p className="text-gray-300 text-xs ml-2">[ {buildTime} ] Compiling modules...</p>
-                                    </div>
-                                    <div className="flex items-center">
-                                        <p className="text-green-500">{">>>"}</p>
-                                        <p className="text-gray-300 text-xs ml-2">[ {buildTime} ] Bundling assets...</p>
-                                    </div>
-                                    <div className="flex items-center">
-                                        <p className="text-green-500">{">>>"}</p>
-                                        <p className="text-gray-300 text-xs ml-2">[ {buildTime} ] Optimizing output...</p>
-                                    </div>
-                                    <div className="flex items-center">
-                                        <p className="text-green-500">{">>>"}</p>
-                                        <p className="text-green-400 text-xs ml-2">[ {buildTime} ] Build completed successfully!</p>
-                                    </div>
-                                    <div className="flex items-center mt-1">
-                                        <p className="text-green-500">{">>>"}</p>
-                                        <p className="text-gray-300 text-xs ml-2">Build time: 3.24s | Output size: 1.2 MB</p>
-                                    </div>
-                                </div>
-
-                                {/* Preview Link */}
-                                <p className="text-purple-400 text-xs mt-2 mb-1 sm:mb-2">$ npm run preview</p>
-                                <div className="relative group flex">
-                                    <p className="text-green-500">{">>>"}</p>
-                                    <a
-                                        className="text-blue-400 text-xs hover:underline cursor-pointer ml-2"
-                                        onClick={handleVideoClick}
-                                    >
-                                        http://localhost:5173/preview - Click to see video
-                                    </a>
-                                </div>
-
-                                {/* Project Info Section */}
-                                <div className="mt-4">
-                                    <p className="text-yellow-400 text-xs mb-1 sm:mb-2">$ cat project-info.md</p>
-                                    <div className="text-gray-300 text-xs space-y-1 pl-2">
-                                        <p><span className="text-green-400">Status:</span> <span className="text-green-400">● Online</span></p>
-                                        <p><span className="text-green-400">Tech:</span> <span className="hidden sm:inline">{currentProject.tags?.map(tag => tag.name).join(', ')}</span><span className="sm:hidden">{currentProject.tags?.slice(0, 2).map(tag => tag.name).join(', ')}{currentProject.tags?.length > 2 ? '...' : ''}</span></p>
-                                    </div>
-                                </div>
-                                <p className="text-green-400 text-xs mt-2 sm:mt-3 animate-pulse">█</p>
+                                <button
+                                    onClick={toggleTerminal}
+                                    className="text-gray-400 hover:text-white text-xs px-2 py-1 rounded hover:bg-gray-700 transition-colors"
+                                >
+                                    Terminal
+                                </button>
                             </div>
                         </div>
+
+                        {/* File Tab */}
+                        <div className="flex bg-gray-800 border-b border-gray-700">
+                            <div className="flex items-center px-4 py-2 bg-black-200 text-white text-xs border-r border-gray-700">
+                                <span>{currentProject.title.replace(/\s+/g, '')}.jsx</span>
+                                <span className="ml-2 text-gray-500">×</span>
+                            </div>
+                        </div>
+
+                        {/* Code Editor Area */}
+                        <div className={`flex-1 p-4 overflow-auto font-mono ${isTerminalOpen ? 'h-1/2' : ''}`}>
+                            <div className="flex text-xs text-gray-500 mb-2">
+                                <span className="w-8 text-right mr-4">1</span>
+                                <span className="w-8 text-right mr-4">2</span>
+                                <span className="w-8 text-right mr-4">3</span>
+                                <span className="w-8 text-right mr-4">4</span>
+                                <span className="w-8 text-right mr-4">5</span>
+                            </div>
+                            <pre className="text-gray-300 text-[10px] leading-relaxed whitespace-pre-wrap">
+                                <code className="language-javascript">
+                                    {reactCodeSnippet.split('\n').slice(0, isTerminalOpen ? 8 : 15).join('\n')}
+                                    {reactCodeSnippet.split('\n').length > (isTerminalOpen ? 8 : 15) ? '\n  // ... rest of component' : ''}
+                                </code>
+                            </pre>
+                        </div>
+
+                        {/* Inline Terminal */}
+                        {isTerminalOpen && (
+                            <div className="h-1/2 border-t border-gray-700 flex flex-col">
+                                {/* Terminal Header */}
+                                <div className="flex items-center justify-between px-4 py-2 bg-gray-900 border-b border-gray-700">
+                                    <div className="flex items-center gap-4">
+                                        <span className="text-gray-300 text-xs font-medium">Terminal</span>
+                                        <div className="flex items-center gap-2">
+                                            <div className="w-2 h-2 bg-green-400 rounded-full"></div>
+                                            <span className="text-green-400 text-xs">bash</span>
+                                        </div>
+                                    </div>
+                                    <button
+                                        onClick={toggleTerminal}
+                                        className="text-gray-400 hover:text-white w-5 h-5 flex items-center justify-center rounded hover:bg-gray-700 text-xs"
+                                    >
+                                        ×
+                                    </button>
+                                </div>
+
+                                {/* Terminal Content */}
+                                <div className="flex-1 p-3 overflow-auto font-mono text-sm bg-black">
+                                    {/* Project Name */}
+                                    <div className="mb-3">
+                                        <div className="flex items-center gap-2">
+                                            <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+                                            <p className="text-green-300 text-xs font-semibold">
+                                                {currentProject.title}
+                                            </p>
+                                        </div>
+                                    </div>
+
+                                    {/* Terminal Commands */}
+                                    <p className="text-purple-400 text-xs mb-1">$ npm run dev</p>
+                                    <div className="text-gray-300 text-xs space-y-1 mb-3">
+                                        <p className="text-green-400">✓ Local: http://localhost:3000/</p>
+                                        <p className="text-green-400">✓ Network: http://192.168.1.1:3000/</p>
+                                    </div>
+
+                                    {/* Preview Link */}
+                                    <p className="text-purple-400 text-xs mb-1">$ npm run preview</p>
+                                    <div className="flex items-center">
+                                        <p className="text-green-500 text-xs">{">>>"}</p>
+                                        <a
+                                            className="text-blue-400 text-xs hover:underline cursor-pointer ml-2"
+                                            onClick={handleVideoClick}
+                                        >
+                                            http://localhost:3000/preview - Click to see video demo
+                                        </a>
+                                    </div>
+
+                                    {/* Project Info */}
+                                    <div className="mt-3">
+                                        <div className="text-gray-300 text-xs space-y-1">
+                                            <p><span className="text-green-400">Status:</span> <span className="text-green-400">● Online</span></p>
+                                            <p><span className="text-green-400">Tech:</span> <span className="hidden sm:inline">{currentProject.tags?.map(tag => tag.name).join(', ')}</span><span className="sm:hidden">{currentProject.tags?.slice(0, 2).map(tag => tag.name).join(', ')}{currentProject.tags?.length > 2 ? '...' : ''}</span></p>
+                                        </div>
+                                    </div>
+                                    <p className="text-green-400 text-xs mt-2 animate-pulse">█</p>
+                                </div>
+                            </div>
+                        )}
                     </div>
                 </div>
             </section>
