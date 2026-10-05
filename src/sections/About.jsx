@@ -176,7 +176,7 @@ const About = () => {
                         <img src='/assets/grid1.png' alt='grid-1' className='w-full sm:h-[276px] h-fit object-contain'/>
                         <div>
                             <p className='grid-headtext'>Hi, Nndamulele Tshipapa here</p>
-                            <p className='grid-subtext'>I am a 22-year-old BCom Information Systems graduate from the University of Johannesburg with a passion for developing software solutions.</p>
+                            <p className='grid-subtext'>I am a BCom Honours in Information Systems graduate from the University of Johannesburg with a passion for developing software solutions.</p>
                             <a href='/assets/record.pdf' className='w-full'>
                                 <Button name='Download Transcript' isBeam containerClass='w-full mt-5 text-sm'/>
                             </a>

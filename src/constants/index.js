@@ -133,6 +133,78 @@ export const myProjects = [
             },
         ],
     },
+    {
+        title: 'IMSA(International Miss South Africa)',
+        desc: 'IMSA is a platform that allows users to register for the International Miss South Africa competition, providing a seamless and efficient way to manage the registration process. The platform is designed to streamline the voting process. With a user-friendly interface, IMSA ensures that the voting experience is smooth and accessible for all participants.',
+        subdesc: '',
+        href: 'https://imsa-chi.vercel.app/',
+        texture: '/textures/project/project4.mp4',
+        logo: '/assets/IMSA-mini.png',
+        logoStyle: {
+            backgroundColor: '#1C1A43',
+            border: '0.2px solid #252262',
+            boxShadow: '0px 0px 60px 0px #635BFF4D',
+        },
+        spotlight: '/assets/spotlight2.png',
+        tags: [
+            {
+                id: 1,
+                name: 'React.js',
+                path: '/assets/react.svg',
+            },
+            {
+                id: 2,
+                name: 'TypeScript',
+                path: 'assets/typescript.png',
+            },
+            {
+                id: 3,
+                name: 'Supabase',
+                path: '/assets/supabase.jpeg',
+            },
+            {
+                id: 4,
+                name: 'TailwindCss',
+                path: '/assets/tailwindcss.png',
+            },
+        ],
+    },
+     {
+        title: 'Flexi',
+        desc: 'Flexi is your all-in-one platform for business management, funding applications, payroll, accounting, and AI-powered insights — all in one place. With Flexi, you can streamline your operations, access funding opportunities, manage your finances, and leverage AI to make informed decisions for your business growth.',
+        subdesc: '',
+        href: 'https://flexi.africa/',
+        texture: '/textures/project/project2.mp4',
+        logo: '/assets/logo_mini.png',
+        logoStyle: {
+            backgroundColor: '#1C1A43',
+            border: '0.2px solid #252262',
+            boxShadow: '0px 0px 60px 0px #635BFF4D',
+        },
+        spotlight: '/assets/spotlight2.png',
+        tags: [
+            {
+                id: 1,
+                name: 'React.js',
+                path: '/assets/react.svg',
+            },
+            {
+                id: 2,
+                name: 'TypeScript',
+                path: 'assets/typescript.png',
+            },
+            {
+                id: 3,
+                name: 'Supabase',
+                path: '/assets/supabase.jpeg',
+            },
+            {
+                id: 4,
+                name: 'TailwindCss',
+                path: '/assets/tailwindcss.png',
+            },
+        ],
+    },
 ];
 
 export const calculateSizes = (isSmall, isMobile, isTablet) => {
